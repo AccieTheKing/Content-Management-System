@@ -1,0 +1,114 @@
+#login_form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+}
+
+#login_form input.success {
+  border: solid 1px #008000;
+  color: #008000;
+}
+
+#login_form input.error {
+  border: solid 1px #f40000;
+}
+
+#login_form input.error::-webkit-input-placeholder {
+  color: #f40000;
+}
+
+#login_form input.error:-ms-input-placeholder {
+  color: #f40000;
+}
+
+#login_form input.error::-ms-input-placeholder {
+  color: #f40000;
+}
+
+#login_form input.error::placeholder {
+  color: #f40000;
+}
+
+/**
+  HOMEPAGE
+*/
+#homeView header {
+  text-align: center;
+  border-radius: 0;
+  margin: 0;
+}
+
+#homeView main .introduction_text {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+#homeView main .card .project-img {
+  height: 250px;
+}
+
+/**
+  EDITPAGE
+*/
+#editView header {
+  text-align: center;
+  border-radius: 0;
+  margin: 0;
+}
+
+#editView header h1 {
+  text-shadow: 4px 4px #FFF;
+}
+
+/**
+  loadingView
+*/
+#loadingView {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#loadingView .img-container {
+  position: relative;
+}
+
+#loadingView .img-container > img {
+  border: none;
+  width: 100%;
+}
+
+/**
+  CUSTOM CLASS LIBARY
+*/
+.pb-15 {
+  padding-bottom: 15px;
+}
+
+.pt-15 {
+  padding-top: 15px;
+}
+
+.pr-15 {
+  padding-right: 15px;
+}
+
+.pl-15 {
+  padding-left: 15px;
+}
+/*# sourceMappingURL=style.css.map */
