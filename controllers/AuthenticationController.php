@@ -7,7 +7,7 @@ use Cms\Views\View;
 
 class AuthenticationController extends ViewController
 {
-    private static $ADMIN_NAME = "Accie";
+    public static $ADMIN_NAME = "Accie";
 
     public function __construct()
     {

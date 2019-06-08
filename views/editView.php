@@ -20,7 +20,6 @@
 <main class="container">
 
     <form action="<?= $_SESSION["GLOBAL_URL"] ?>admin.edit" method="post">
-
         <div class="row pt-15">
             <div class="col-6 offset-md-2 col-md-4">
                 <div class="form-group">

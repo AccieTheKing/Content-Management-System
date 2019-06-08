@@ -64,31 +64,35 @@ class EditController extends ViewController
      */
     public function saveContent()
     {
-        $project_id = isset($_POST["project_id"]) ? $_POST["project_id"] : "";
-        $project_title = isset($_POST["project_title"]) ? $_POST["project_title"] : "";
-        $project_color = isset($_POST["project_color"]) ? $_POST["project_color"] : "";
-        $project_backgroundColor = isset($_POST["project_backgroundColor"]) ? $_POST["project_backgroundColor"] : "";
-        $project_backgroundImage = isset($_POST["project_BackgroundImg"]) ? $_POST["project_BackgroundImg"] : "";
-        $project_positionX = isset($_POST["project_positionX"]) ? $_POST["project_positionX"] : "";
-        $project_positionY = isset($_POST["project_positionY"]) ? $_POST["project_positionY"] : "";
-        $project_isBanner = isset($_POST["project_is_banner"]) ? $_POST["project_is_banner"] : "";
-        $project_subUrl = isset($_POST["project_content_url"]) ? $_POST["project_content_url"] : "";
-        $project_subTitle = isset($_POST["project_content_title"]) ? $_POST["project_content_title"] : "";
-        $project_subDescription = isset($_POST["project_content_description"]) ? $_POST["project_content_description"] : "";
+        if ($_SESSION['USERNAME'] === "Accie") {
+            $project_id = isset($_POST["project_id"]) ? $_POST["project_id"] : "";
+            $project_title = isset($_POST["project_title"]) ? $_POST["project_title"] : "";
+            $project_color = isset($_POST["project_color"]) ? $_POST["project_color"] : "";
+            $project_backgroundColor = isset($_POST["project_backgroundColor"]) ? $_POST["project_backgroundColor"] : "";
+            $project_backgroundImage = isset($_POST["project_BackgroundImg"]) ? $_POST["project_BackgroundImg"] : "";
+            $project_positionX = isset($_POST["project_positionX"]) ? $_POST["project_positionX"] : "";
+            $project_positionY = isset($_POST["project_positionY"]) ? $_POST["project_positionY"] : "";
+            $project_isBanner = isset($_POST["project_is_banner"]) ? $_POST["project_is_banner"] : "";
+            $project_subUrl = isset($_POST["project_content_url"]) ? $_POST["project_content_url"] : "";
+            $project_subTitle = isset($_POST["project_content_title"]) ? $_POST["project_content_title"] : "";
+            $project_subDescription = isset($_POST["project_content_description"]) ? $_POST["project_content_description"] : "";
 
 
-        $stmt = Database::getConn()->prepare("UPDATE page_structure SET title = ?, text_color = ?, background_color = ?, 
-                          background_img = ?, positionX = ?, positionY = ?, is_banner = ?, sub_url = ?, sub_title = ?,
-        sub_description = ? WHERE id = ?");
+            $stmt = Database::getConn()->prepare("UPDATE page_structure SET title = ?, text_color = ?, background_color = ?, 
+                            background_img = ?, positionX = ?, positionY = ?, is_banner = ?, sub_url = ?, sub_title = ?,
+            sub_description = ? WHERE id = ?");
 
 
-        $stmt->bind_param("ssssssisssi", $project_title, $project_color, $project_backgroundColor,
-            $project_backgroundImage, $project_positionX, $project_positionY, $project_isBanner, $project_subUrl,
-            $project_subTitle, $project_subDescription, $project_id);
-        $stmt->execute();
+            $stmt->bind_param("ssssssisssi", $project_title, $project_color, $project_backgroundColor,
+                $project_backgroundImage, $project_positionX, $project_positionY, $project_isBanner, $project_subUrl,
+                $project_subTitle, $project_subDescription, $project_id);
+            $stmt->execute();
 
-        header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.edit?project=" . $project_id);
-        View::get("loadingView.php", ["pageHeader" => "Loading"]);
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.edit?project=" . $project_id);
+            View::get("loadingView.php", ["pageHeader" => "Loading"]);
+        } else {
+            View::get("errorView.php");
+        }
     }
 
 }
