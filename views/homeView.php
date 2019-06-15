@@ -16,36 +16,48 @@
     <h1><?= $pageTitle ?></h1>
 </header>
 <?php \Cms\Views\View::get("includes/navbar.php", ["usernameUser" => $_SESSION["USERNAME"]]) ?>
-<main class="container">
-    <div class="row">
-        <div class="col-12">
-            <p class="introduction_text"><?= $pageInfoText ?></p>
+<main >
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="introduction_text"><?= $pageInfoText ?></p>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <?php foreach ($projectPreview as $projects) {
-            foreach ($projects as $project) {
-                // if ($project["is_banner"] == 0) {
-                ?>
-                <div class="col-12 col-md-6">
-                    <div class="card text-center mb-3">
-                        <div class="card-header">
-                            <?= $project["title"] ?>
-                        </div>
-                        <div style="background: url(<?= $project["background_img"] ?>) center 40%;"
-                             class="project-img"></div>
-                        <div class="card-body">
-                            <a href="<?= $_SESSION["GLOBAL_URL"] ?>admin.edit?project=<?= $project["id"] ?>"
-                               class="btn btn-dark">Edit
-                                this project</a>
-                        </div>
-                    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="row">
+                    <?php foreach ($projectPreview as $projects) {
+                        foreach ($projects as $project) {
+                            // if ($project["is_banner"] == 0) {
+                            ?>
+                            <div class="col-12 col-md-6">
+                                <div class="card text-center mb-3">
+                                    <div class="card-header">
+                                        <?= $project["title"] ?>
+                                    </div>
+                                    <div style="background: url(<?= $project["background_img"] ?>) center 40%;"
+                                         class="project-img"></div>
+                                    <div class="card-body">
+                                        <a href="<?= $_SESSION["GLOBAL_URL"] ?>admin.edit?project=<?= $project["id"] ?>"
+                                           class="btn btn-dark">Edit
+                                            this project</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                            // }
+                        }
+                    } ?>
                 </div>
-                <?php
-                // }
-            }
-        } ?>
+            </div>
+            <div class="col-12 col-md-2">
+                <p>Hier wat admin functionaliteiten</p>
+            </div>
+        </div>
     </div>
+
 </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

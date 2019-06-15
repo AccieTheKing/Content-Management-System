@@ -44,7 +44,7 @@ class EditController extends ViewController
     public function getVisitorView()
     {
 
-        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] == 4)
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4)
             header("location:" . $_SESSION["GLOBAL_URL"] . 'admin.edit?project=' . $_GET["project"]);
 
         $json = $this->getApiDecoded();
@@ -64,7 +64,7 @@ class EditController extends ViewController
      */
     public function saveContent()
     {
-        if ($_SESSION['USERNAME'] === "Accie") {
+        if ($_SESSION['USERNAME'] === "Accie" && $this->container["ID"] === 4) {
             $project_id = isset($_POST["project_id"]) ? $_POST["project_id"] : "";
             $project_title = isset($_POST["project_title"]) ? $_POST["project_title"] : "";
             $project_color = isset($_POST["project_color"]) ? $_POST["project_color"] : "";

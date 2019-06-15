@@ -16,9 +16,12 @@
 <header class="jumbotron" style="background: url(<?= $pageVar["background_img"] ?>) center center">
     <h1><?= $pageVar["title"] ?></h1>
 </header>
-<?php \Cms\Views\View::get("includes/navbar.php", ["usernameUser" => $_SESSION["USERNAME"]]) ?>
-<main class="container">
+<?php
+    /** The navbar including */
+    \Cms\Views\View::get("includes/navbar.php", ["usernameUser" => $_SESSION["USERNAME"]])
+?>
 
+<main class="container">
     <form action="<?= $_SESSION["GLOBAL_URL"] ?>admin.edit" method="post">
         <div class="row pt-15">
             <div class="col-6 offset-md-2 col-md-4">
