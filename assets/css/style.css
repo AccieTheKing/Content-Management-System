@@ -58,14 +58,50 @@
 /**
   EDITPAGE
 */
-#editView header {
-  text-align: center;
-  border-radius: 0;
+#editView .jumbotron {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
   margin: 0;
+  border-radius: 0;
+  background: #e5e65a;
 }
 
-#editView header h1 {
-  text-shadow: 4px 4px #FFF;
+#editView .jumbotron span {
+  font-size: 2em;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+#editView .jumbotron h1 {
+  text-shadow: 4px 4px #fff;
+}
+
+#editView div#nav-tab {
+  margin-top: -40px;
+  border: none;
+}
+
+#editView .nav-tabs .nav-link {
+  color: #000;
+  border: none;
+}
+
+#editView .nav-tabs .nav-link.active {
+  color: inherit;
+  border: solid 1px transparent;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+#editView .tab-content {
+  padding-top: 15px;
 }
 
 /**
