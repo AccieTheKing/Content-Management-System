@@ -46,7 +46,7 @@ class ApiController extends ViewController
         }
 
 
-        ViewController::jsonResponse(["projecten" => $data]);
+        ViewController::jsonResponse(["projects" => $data]);
 
     }
 }
