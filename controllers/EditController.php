@@ -34,7 +34,7 @@ class EditController extends ViewController
             [
                 "pageHeader" => "Edit",
                 "pageContent" => [
-                    "contentTitle" => ($json["projecten"])
+                    "contentTitle" => ($json["projects"])
                 ]
             ]
         );
@@ -53,7 +53,7 @@ class EditController extends ViewController
             [
                 "pageHeader" => "Edit",
                 "pageContent" => [
-                    "contentTitle" => ($json["projecten"])
+                    "contentTitle" => ($json["projects"])
                 ]
             ]
         );

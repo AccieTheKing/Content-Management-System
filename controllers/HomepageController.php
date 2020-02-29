@@ -42,7 +42,7 @@ class HomepageController extends ViewController
                 "pageTitle" => "Home",
                 "pageInfoText" => "Welcome to my Content management system, below are some projects that i'm working on.",
                 "projectPreview" => [
-                    ($json["projecten"])
+                    ($json["projects"])
                 ]
             ]);
 
@@ -65,7 +65,7 @@ class HomepageController extends ViewController
                 "pageTitle" => "Home",
                 "pageInfoText" => "Welcome to my Content management system, below are some projects that i'm working on.",
                 "projectPreview" => [
-                    ($json["projecten"])
+                    ($json["projects"])
                 ]
             ]);
 
