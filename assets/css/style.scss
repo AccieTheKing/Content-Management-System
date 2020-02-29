@@ -1,7 +1,11 @@
 $red: #f40000;
 $green: #008000;
 $white: #fff;
+$black: #212121;
 
+/**
+  Login form
+*/
 #login_form {
   display: flex;
   justify-content: center;
@@ -24,10 +28,10 @@ $white: #fff;
   }
 }
 
-#mainNav {
-  .username-label {
-  }
-}
+// #mainNav {
+//   .username-label {
+//   }
+// }
 
 /**
   HOMEPAGE
@@ -92,7 +96,7 @@ $white: #fff;
     border-color: #dee2e6 #dee2e6 #fff;
   }
 
-  .tab-content{
+  .tab-content {
     padding-top: 15px;
   }
 }
@@ -112,6 +116,33 @@ $white: #fff;
     & > img {
       border: none;
       width: 100%;
+    }
+  }
+}
+
+/**
+  ERROR VIEW 
+*/
+#errorView {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: url("../images/404-snow.gif") center center no-repeat;
+  background-size: contain;
+
+  .center-content {
+    text-align: center;
+    h1 {
+      color: $black;
+      font-size: 4em;
+      text-transform: uppercase;
+      -webkit-text-stroke: 2px $white;
+    }
+    p {
+      font-size: 2em;
+      font-weight: bold;
+      -webkit-text-stroke: 1px $white;
     }
   }
 }
