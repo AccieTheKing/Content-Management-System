@@ -30,11 +30,6 @@ return [
         "controller" => "HomepageController@getAdminView"
     ],
     [
-        "url" => "/visitor.home",
-        "method" => "GET",
-        "controller" => "HomepageController@getVisitorView"
-    ],
-    [
         "url" => "/admin.edit",
         "method" => "GET",
         "controller" => "EditController@getAdminView"
@@ -45,24 +40,14 @@ return [
         "controller" => "EditController@saveContent"
     ],
     [
+        "url" => "/visitor.home",
+        "method" => "GET",
+        "controller" => "HomepageController@getVisitorView"
+    ],
+    [
         "url" => "/visitor.edit",
         "method" => "GET",
         "controller" => "EditController@getVisitorView"
-    ],
-    [
-        "url" => "/create.project",
-        "method" => "POST",
-        "controller" => "HomepageController@createProject"
-    ],
-    [
-        "url" => "/delete.project",
-        "method" => "POST",
-        "controller" => "HomepageController@deleteProject"
-    ],
-    [
-        "url" => "/change.project",
-        "method" => "POST",
-        "controller" => "HomepageController@changeProjectOrder"
     ],
     [
         "url" => "/api",

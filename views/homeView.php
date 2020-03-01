@@ -29,32 +29,136 @@
                     <div class="row">
                         <?php foreach ($projectPreview as $projects) {
                             foreach ($projects as $project) { ?>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card mb-3">
-                                <?php
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="card mb-3">
+                                        <?php
                                         if (isset($project["background_img"]) && !empty($project["background_img"])) {
-                                            echo '<img class="card-img-top" src="'.$project["background_img"].'" alt="Card image cap" class="project-img">';
+                                            echo '<img class="card-img-top" src="' . $project["background_img"] . '" alt="Card image cap" class="project-img">';
                                         } else {
                                             echo '';
                                         }
-                                ?>
-                                <div class="card-body">
-                                    <h5 class="card-title"><?= $project["title"] ?></h5>
+                                        ?>
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?= $project["title"] ?></h5>
 
-                                    <a href="<?= $_SESSION["GLOBAL_URL"] ?>admin.edit?project=<?= $project["id"] ?>" class="btn btn-dark btn-block">Edit this project</a>
+                                            <a href="<?= $_SESSION["GLOBAL_URL"] ?>admin.edit?project=<?= $project["id"] ?>" class="btn btn-dark btn-block">Edit this project</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
                         <?php }
                         } ?>
                     </div>
                 </div>
                 <div class="col-12 col-md-2">
-                    <p>Hier wat admin functionaliteiten</p>
+                    <h2>Admin functions</h2>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#createProject">
+                            <span class="badge badge-primary">+</span> Create
+                        </button>
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteProject">
+                            <span class="badge badge-primary">-</span> Delete
+                        </button>
+                        <button class="btn btn-secondary" data-toggle="modal" data-target="#changePosition">
+                            <span class="badge badge-primary">%</span> Change
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-
+        <div class="modals-container">
+            <div class="modal fade" id="createProject" tabindex="-1" role="dialog">
+                <form action="<?= $_SESSION["GLOBAL_URL"] ?>create.project" method="post">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create a new project</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" name="project_title" id="project_title" aria-describedby="project_title" placeholder="Enter project title" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Text color</label>
+                                    <input type="text" class="form-control" name="project_text_color" id="project_text_color" aria-describedby="project_text_color" placeholder="What should the text color be?" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Background color</label>
+                                    <input type="text" class="form-control" name="project_background_color" id="project_background_color" aria-describedby="project_background_color" placeholder="Enter project color" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Background image</label>
+                                    <input type="text" class="form-control" name="project_background_image" id="project_background_image" aria-describedby="project_title" placeholder="Enter project title" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Banner</label>
+                                    <input type="text" class="form-control" name="project_banner" id="banner" aria-describedby="project_banner" placeholder="Enter project banner" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal fade" id="deleteProject" tabindex="-1" role="dialog">
+                <form action="<?= $_SESSION["GLOBAL_URL"] ?>delete.project" method="post">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete project</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="title">The id of the project</label>
+                                    <input type="text" class="form-control" name="delete_project_with_id" id="project_id" aria-describedby="project_id" placeholder="Enter the project id" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal fade" id="changePosition" tabindex="-1" role="dialog">
+                <form action="<?= $_SESSION["GLOBAL_URL"] ?>change.project" method="post">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Change project order</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="title">Swap project with id</label>
+                                    <input type="text" class="form-control" name="project_swap_one" id="project_id_one" aria-describedby="project_id_one" placeholder="Enter project id to be swaped" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">To be swaped with id</label>
+                                    <input type="text" class="form-control" name="project_swap_two" id="project_id_two" aria-describedby="project_id_two" placeholder="Enter project id to be swaped" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">

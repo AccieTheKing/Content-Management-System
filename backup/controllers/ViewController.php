@@ -37,6 +37,7 @@ abstract class ViewController
         header('Content-Type: application/json');
 
         die($jsonEncode);
+
     }
 
     /**
@@ -49,9 +50,9 @@ abstract class ViewController
     {
 
         $data = file_get_contents($_SESSION["GLOBAL_URL"] . 'api');
-        // $data = file_get_contents('https://cms.acdaling.nl/api');
         $m = str_replace('},]', "}]", $data);
 
         return $json = json_decode($m, true);
+
     }
 }

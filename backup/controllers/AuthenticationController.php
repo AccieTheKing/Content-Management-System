@@ -13,23 +13,21 @@ class AuthenticationController extends ViewController
     {
         $_SESSION["USERNAME"] = null;
         $_SESSION["GLOBAL_URL"] = "https://cms.acdaling.nl/";
-        // $_SESSION["GLOBAL_URL"] = "http://localhost/";
     }
 
 
     public function getView()
     {
-        View::get(
-            'loginView.php',
+        View::get('loginView.php',
             [
                 "pageHeader" => "Loginpage",
                 "pageTitle" => "Login"
-            ]
-        );
+            ]);
     }
 
     public function validateLogin()
     {
+
         $username = isset($_POST["txtfieldUsername"]) ? $_POST["txtfieldUsername"] : "";
         $password = isset($_POST["txtfieldPassword"]) ? $_POST["txtfieldPassword"] : "";
 
@@ -45,15 +43,15 @@ class AuthenticationController extends ViewController
 
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "admin.home");
+
         } else if ($verify) {
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "visitor.home");
         } else {
             $_SESSION["USERNAME"] = true;
-            $this->getView(); //The login screen
+            $this->getView();//The login screen
         }
-        // $_SESSION["USERNAME"] = "Accie";
-        // header("location: " . $_SESSION["GLOBAL_URL"] . "admin.home");
+
     }
 
     public function registerUser()
@@ -72,4 +70,5 @@ class AuthenticationController extends ViewController
         session_destroy();
         header("location: " . $_SESSION["GLOBAL_URL"]);
     }
+
 }
