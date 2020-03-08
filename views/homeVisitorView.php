@@ -27,6 +27,7 @@
                     <?php if (isset($project["background_img"]) && !empty($project["background_img"])) { ?>
                         <div class="col-12 col-md-6 col-lg-3">
                             <div class="card mb-3">
+                                <h5 class="text-center">#<?= $project["id"] ?></h5>
                                 <img class="card-img-top" src="<?= $project["background_img"] ?>" alt="Card image cap" class="project-img">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $project["title"] ?></h5>

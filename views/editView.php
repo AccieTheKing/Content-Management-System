@@ -1,4 +1,8 @@
-<?php $pageVar = $pageContent["contentTitle"][$_GET["project"]] ?>
+<?php
+foreach ($pageContent["contentTitle"] as $project)
+    if ($project["id"] == $_GET["project"])
+        $pageVar = $project;
+?>
 <!doctype html>
 <html lang="en">
 
@@ -80,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                            <label for="id" class="col-sm-2">Act as banner (0 or 1)</label>
+                                <label for="id" class="col-sm-2">Act as banner (0 or 1)</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="project_is_banner" value="<?= $pageVar["is_banner"] ?>" autocomplete="off">
                                 </div>

@@ -28,9 +28,10 @@
                 <div class="col-12 col-md-8 offset-md-2">
                     <div class="row">
                         <?php foreach ($projectPreview as $projects) {
-                            foreach ($projects as $project) { ?>
+                            foreach ($projects as $key => $project) { ?>
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <div class="card mb-3">
+                                        <h5 class="text-center">#<?= $project["id"] ?></h5>
                                         <?php
                                         if (isset($project["background_img"]) && !empty($project["background_img"])) {
                                             echo '<img class="card-img-top" src="' . $project["background_img"] . '" alt="Card image cap" class="project-img">';
@@ -91,7 +92,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Background image</label>
-                                    <input type="text" class="form-control" name="project_background_image" id="project_background_image" aria-describedby="project_title" placeholder="Enter project title" autocomplete="off">
+                                    <input type="text" class="form-control" name="project_background_image" id="project_background_image" aria-describedby="project_title" value="https://acdaling.nl/img/" placeholder="Enter project title" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Banner</label>

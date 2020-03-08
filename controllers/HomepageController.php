@@ -16,10 +16,10 @@ class HomepageController extends ViewController
         if (!isset($_SESSION["USERNAME"]))
             header("location:" . $_SESSION["GLOBAL_URL"]);
 
-        $stmt = Database::getConn()->prepare("SELECT ID FROM admin WHERE username = ?");
-        $stmt->bind_param("s", $_SESSION["USERNAME"]);
-        $stmt->execute();
-        $this->container = $stmt->get_result()->fetch_assoc();
+        // $stmt = Database::getConn()->prepare("SELECT ID FROM admin WHERE username = ?");
+        // $stmt->bind_param("s", $_SESSION["USERNAME"]);
+        // $stmt->execute();
+        // $this->container = $stmt->get_result()->fetch_assoc();
     }
 
     /**

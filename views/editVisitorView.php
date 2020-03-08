@@ -1,4 +1,8 @@
-<?php $pageVar = $pageContent["contentTitle"][$_GET["project"]] ?>
+<?php
+foreach ($pageContent["contentTitle"] as $project)
+    if ($project["id"] == $_GET["project"])
+        $pageVar = $project;
+?>
 <!doctype html>
 <html lang="en">
 

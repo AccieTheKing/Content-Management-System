@@ -13,7 +13,6 @@ class AuthenticationController extends ViewController
     {
         $_SESSION["USERNAME"] = null;
         $_SESSION["GLOBAL_URL"] = "https://cms.acdaling.nl/";
-        // $_SESSION["GLOBAL_URL"] = "http://localhost/";
     }
 
 
@@ -52,8 +51,6 @@ class AuthenticationController extends ViewController
             $_SESSION["USERNAME"] = true;
             $this->getView(); //The login screen
         }
-        // $_SESSION["USERNAME"] = "Accie";
-        // header("location: " . $_SESSION["GLOBAL_URL"] . "admin.home");
     }
 
     public function registerUser()
@@ -62,9 +59,11 @@ class AuthenticationController extends ViewController
         $password = isset($_POST["txtfieldPassword"]) ? $_POST["txtfieldPassword"] : "";
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = Database::getConn()->prepare("INSERT INTO admin (username, password) VALUES (?,?)");
-        $stmt->bind_param("ss", $username, $hashedPassword);
-        $stmt->execute();
+        // $stmt = Database::getConn()->prepare("INSERT INTO admin (username, password) VALUES (?,?)");
+        // $stmt->bind_param("ss", $username, $hashedPassword);
+        // $stmt->execute();
+        $this->getView();
+        echo $hashedPassword;
     }
 
     public function logoutUser()
