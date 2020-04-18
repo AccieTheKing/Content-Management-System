@@ -79,6 +79,17 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <label for="title">Create between</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="project_id_left" id="project_id_left" placeholder="Enter project ID" autocomplete="off">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="project_id_right" id="project_id_right" placeholder="Enter project ID" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="title">Title</label>
                                     <input type="text" class="form-control" name="project_title" id="project_title" aria-describedby="project_title" placeholder="Enter project title" autocomplete="off">
                                 </div>

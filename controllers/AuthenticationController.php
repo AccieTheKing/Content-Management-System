@@ -41,7 +41,6 @@ class AuthenticationController extends ViewController
         $verify = password_verify($password, $row["password"]);
 
         if ($verify && $row["username"] === static::$ADMIN_NAME) {
-
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "admin.home");
         } else if ($verify) {
@@ -53,6 +52,9 @@ class AuthenticationController extends ViewController
         }
     }
 
+    /**
+     * This function registers new users with using the loginform
+     */
     public function registerUser()
     {
         $username = isset($_POST["txtfieldUsername"]) ? $_POST["txtfieldUsername"] : "";

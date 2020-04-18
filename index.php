@@ -6,8 +6,8 @@ session_start();
  * @author Acdaling Edusei
  */
 
-$url = $_SERVER['REQUEST_URI'];//The request url
-$method = $_SERVER['REQUEST_METHOD'];//The request method
+$url = $_SERVER['REQUEST_URI']; //The request url
+$method = $_SERVER['REQUEST_METHOD']; //The request method
 
 // Load dependencies.
 require_once 'autoload.php';
@@ -20,5 +20,3 @@ $router = new Cms\Utils\Router($routes);
 
 // Run page.
 $router->run($url, $method);
-
-?>
