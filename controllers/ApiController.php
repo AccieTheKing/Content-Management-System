@@ -37,16 +37,15 @@ class ApiController extends ViewController
                 "description" => $row["sub_description"],
             ];
 
+            // remove these keys when they're on parent level
             unset($row["sub_url"]);
             unset($row["sub_title"]);
             unset($row["sub_description"]);
 
             $data[] = $row;
-
         }
 
 
         ViewController::jsonResponse(["projects" => $data]);
-
     }
 }

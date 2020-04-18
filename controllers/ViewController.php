@@ -30,7 +30,6 @@ abstract class ViewController
      */
     public function jsonResponse($data)
     {
-
         $jsonEncode = json_encode($data);
 
         header('Access-Control-Allow-Origin: *');
@@ -40,18 +39,16 @@ abstract class ViewController
     }
 
     /**
-     * Get a decoded version of the api out of the database
-     * and return this
+     * Get a decoded version of the api out of the database, this is used internaly by the website self
      *
      * @return mixed version of the api
      */
     public function getApiDecoded()
     {
-
         $data = file_get_contents($_SESSION["GLOBAL_URL"] . 'api');
         // $data = file_get_contents('https://cms.acdaling.nl/api');
         $m = str_replace('},]', "}]", $data);
-
         return $json = json_decode($m, true);
+        // return json_decode($data);
     }
 }

@@ -62,7 +62,7 @@ return [
     [
         "url" => "/change.project",
         "method" => "POST",
-        "controller" => "HomepageController@changeProjectOrder"
+        "controller" => "HomepageController@swapProjectOrder"
     ],
     [
         "url" => "/api",
