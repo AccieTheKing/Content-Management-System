@@ -48,7 +48,17 @@ class ApiController extends ViewController
             $data[] = $row;
         }
 
+        $headerData = headerDetails()
 
-        ViewController::jsonResponse(["projects" => $data]);
+        ViewController::jsonResponse([ "projects" => $data,"pageHeader" => $headerData]);
+    }
+
+    private function headerDetails(){
+        $stmt = Database::getConn()->prepare("SELECT * FROM page_header");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+
+        return $rows;
     }
 }
