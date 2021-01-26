@@ -31,11 +31,14 @@ class ApiController extends ViewController
 
         foreach ($rows as $row) {
 
+            //Only show these details when project is not a banner
+           if($row["is_banner"] == 0){
             $row["content"] = [
                 "url" => $row["sub_url"],
                 "title" => $row["sub_title"],
                 "description" => $row["sub_description"],
             ];
+           }
 
             // remove these keys when they're on parent level
             unset($row["sub_url"]);
