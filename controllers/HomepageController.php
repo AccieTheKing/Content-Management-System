@@ -68,6 +68,22 @@ class HomepageController extends ViewController
         );
     }
 
+    public function changeWebsiteHeader()
+    {
+        if (!isset($_SESSION["USERNAME"]))
+            header("location:" . $_SESSION["GLOBAL_URL"]);
+
+        if (isset($_POST['website_banner_header'])) {
+            $headerType = $_POST['website_banner_header'];
+            $this->changeHeaderModus($headerType);
+
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
+            View::get("loadingView.php", ["pageHeader" => "Loading"]);
+        } else {
+            View::get("errorView.php", ["pageHeader" => "Error"]);
+        }
+    }
+
     /**
      * This function will create a new project and store it in de database
      */
@@ -165,9 +181,9 @@ class HomepageController extends ViewController
     }
 
     /**
-     * This function is responsible for changing the order of the projects that are being displayd on 
+     * This function is responsible for changing the order of the projects that are being displayd on
      * my website https://www.acdaling.nl
-     * 
+     *
      */
     private function changeProjectOrder($leftProjectID, $rightProjectID)
     {
@@ -217,6 +233,16 @@ class HomepageController extends ViewController
         $stmt->execute();
     }
 
+    /** Updates */
+    private function changeHeaderModus($modus)
+    {
+        $id = 1;
+        $stmt = Database::getConn()->prepare("UPDATE page_header SET mode = ? WHERE id = ?");
+        $stmt->bind_param("si", $modus, $id);
+        $stmt->execute();
+    }
+
+    /** Getters */
     private function getSingleProject($id)
     {
         $stmt = Database::getConn()->prepare("SELECT * FROM page_structure WHERE id = ?");
@@ -229,6 +255,15 @@ class HomepageController extends ViewController
     private function getAllProjects()
     {
         $stmt = Database::getConn()->prepare("SELECT * FROM page_structure"); // fetch all projects
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result;
+    }
+
+    private function getHeaderModus()
+    {
+        $stmt = Database::getConn()->prepare("SELECT * FROM page_header");
         $stmt->execute();
         $result = $stmt->get_result();
 

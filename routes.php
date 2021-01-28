@@ -65,6 +65,11 @@ return [
         "controller" => "HomepageController@swapProjectOrder"
     ],
     [
+        "url" => "/change.header",
+        "method" => "POST",
+            "controller" => "HomepageController@changeWebsiteHeader"
+    ],
+    [
         "url" => "/api",
         "method" => "GET",
         "controller" => "ApiController@viewApi"
