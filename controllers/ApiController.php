@@ -48,7 +48,7 @@ class ApiController extends ViewController
             $data[] = $row;
         }
 
-        $headerData = headerDetails()
+        $headerData = $this->headerDetails();
 
         ViewController::jsonResponse([ "projects" => $data,"pageHeader" => $headerData]);
     }
