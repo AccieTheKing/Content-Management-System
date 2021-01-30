@@ -72,15 +72,17 @@ class HomepageController extends ViewController
     {
         if (!isset($_SESSION["USERNAME"]))
             header("location:" . $_SESSION["GLOBAL_URL"]);
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4){
+            if (isset($_POST['website_banner_header'])) {
+                $headerType = $_POST['website_banner_header'];
+                $this->changeHeaderModus($headerType);
 
-        if (isset($_POST['website_banner_header'])) {
-            $headerType = $_POST['website_banner_header'];
-            $this->changeHeaderModus($headerType);
-
-            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
-            View::get("loadingView.php", ["pageHeader" => "Loading"]);
-        } else {
-            View::get("errorView.php", ["pageHeader" => "Error"]);
+                header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
+                View::get("loadingView.php", ["pageHeader" => "Loading"]);
+            }
+        } else{
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
+            View::get("errorView.php", ["pageHeader" => "Nice try"]);
         }
     }
 
@@ -91,12 +93,81 @@ class HomepageController extends ViewController
     {
         if (!isset($_SESSION["USERNAME"]))
             header("location:" . $_SESSION["GLOBAL_URL"]);
-
-        if (!empty($_POST['project_id_right']) && !empty($_POST['project_id_left'])) {
-            $this->insertBetweenProjects($_POST['project_id_left']);
-        } else {
-            $stmt = Database::getConn()->prepare("INSERT INTO page_structure (title, text_color,
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4) {
+            if (!empty($_POST['project_id_right']) && !empty($_POST['project_id_left'])) {
+                $this->insertBetweenProjects($_POST['project_id_left']);
+            } else {
+                $stmt = Database::getConn()->prepare("INSERT INTO page_structure (title, text_color,
             background_color, background_img, is_banner) VALUES (?, ?, ?, ?, ?)");
+
+                $stmt->bind_param(
+                    "ssssi",
+                    $_POST['project_title'],
+                    $_POST['project_text_color'],
+                    $_POST['project_background_color'],
+                    $_POST['project_background_image'],
+                    $_POST['project_banner']
+                );
+                $stmt->execute();
+            }
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
+            View::get("loadingView.php", ["pageHeader" => "Loading"]);
+        } else {
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
+            View::get("errorView.php", ["pageHeader" => "Nice try"]);
+        }
+    }
+
+    /**
+     * This function will delete a project from the database
+     */
+    public function deleteProject()
+    {
+        if (!isset($_SESSION["USERNAME"]))
+            header("location:" . $_SESSION["GLOBAL_URL"]);
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4) {
+            $projectID = $_POST['delete_project_with_id'];
+            $number_of_projects = $this->getTotalNumOfProjects();
+            $rows = $this->getAllProjects()->fetch_all(MYSQLI_ASSOC);
+
+            for ($i = $number_of_projects; $i > 0; $i--) { // look for right project
+                if ($projectID == $rows[$i]["id"]) { // when project found
+                    for ($j = $i; $j < $number_of_projects; $j++) { // swap projects on the right with left till last one
+                        if (isset($rows[$j + 1])) { // Check if item is the last in the list
+                            $this->changeProjectOrder($rows[$j]["id"], $rows[$j + 1]["id"]);
+                        } else {
+                            $stmt = Database::getConn()->prepare("DELETE FROM page_structure WHERE id = ?");
+                            $stmt->bind_param("i", $rows[$j]["id"]);
+                            $stmt->execute();
+                        }
+                    }
+                    break;
+                }
+            }
+            View::get("loadingView.php", ["pageHeader" => "Loading"]);
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
+        } else {
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
+            View::get("errorView.php", ["pageHeader" => "Nice try"]);
+        }
+    }
+
+    public function swapProjectOrder()
+    {
+        $this->changeProjectOrder($_POST['project_swap_one'], $_POST['project_swap_two']);
+    }
+
+    /**
+     * This function inserts a project in between two other projects in
+     */
+    private function insertBetweenProjects($projectLeftID)
+    {
+        if (!isset($_SESSION["USERNAME"]))
+            header("location:" . $_SESSION["GLOBAL_URL"]);
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4) {
+            // create empty project
+            $stmt = Database::getConn()->prepare("INSERT INTO page_structure (title, text_color,
+        background_color, background_img, is_banner) VALUES (?, ?, ?, ?, ?)");
 
             $stmt->bind_param(
                 "ssssi",
@@ -107,76 +178,20 @@ class HomepageController extends ViewController
                 $_POST['project_banner']
             );
             $stmt->execute();
-        }
 
-        header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
-        View::get("loadingView.php", ["pageHeader" => "Loading"]);
-    }
+            $number_of_projects = $this->getTotalNumOfProjects();
+            $rows = $this->getAllProjects()->fetch_all(MYSQLI_ASSOC);
 
-    /**
-     * This function will delete a project from the database
-     */
-    public function deleteProject()
-    {
-        if (!isset($_SESSION["USERNAME"]))
-            header("location:" . $_SESSION["GLOBAL_URL"]);
-
-        $projectID = $_POST['delete_project_with_id'];
-        $number_of_projects = $this->getTotalNumOfProjects();
-        $rows = $this->getAllProjects()->fetch_all(MYSQLI_ASSOC);
-
-        for ($i = $number_of_projects; $i > 0; $i--) { // look for right project
-            if ($projectID == $rows[$i]["id"]) { // when project found
-                for ($j = $i; $j < $number_of_projects; $j++) { // swap projects on the right with left till last one
-                    if (isset($rows[$j + 1])) { // Check if item is the last in the list
-                        $this->changeProjectOrder($rows[$j]["id"], $rows[$j + 1]["id"]);
-                    } else {
-                        $stmt = Database::getConn()->prepare("DELETE FROM page_structure WHERE id = ?");
-                        $stmt->bind_param("i", $rows[$j]["id"]);
-                        $stmt->execute();
-                    }
+            for ($i = $number_of_projects - 1; $i != 0; $i--) {
+                if ($projectLeftID == $rows[$i - 1]["id"]) {
+                    break;
+                } else {
+                    $this->changeProjectOrder($rows[$i - 1]["id"], $rows[$i]["id"]);
                 }
-                break;
             }
-        }
-
-        View::get("loadingView.php", ["pageHeader" => "Loading"]);
-        header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
-    }
-
-    public function swapProjectOrder()
-    {
-        $this->changeProjectOrder($_POST['project_swap_one'], $_POST['project_swap_two']);
-    }
-
-    /**
-     * This function inserts a project inbetween two other projects in
-     */
-    private function insertBetweenProjects($projectLeftID)
-    {
-        // create empty project
-        $stmt = Database::getConn()->prepare("INSERT INTO page_structure (title, text_color,
-        background_color, background_img, is_banner) VALUES (?, ?, ?, ?, ?)");
-
-        $stmt->bind_param(
-            "ssssi",
-            $_POST['project_title'],
-            $_POST['project_text_color'],
-            $_POST['project_background_color'],
-            $_POST['project_background_image'],
-            $_POST['project_banner']
-        );
-        $stmt->execute();
-
-        $number_of_projects = $this->getTotalNumOfProjects();
-        $rows = $this->getAllProjects()->fetch_all(MYSQLI_ASSOC);
-
-        for ($i = $number_of_projects - 1; $i != 0; $i--) {
-            if ($projectLeftID == $rows[$i - 1]["id"]) {
-                break;
-            } else {
-                $this->changeProjectOrder($rows[$i - 1]["id"], $rows[$i]["id"]);
-            }
+        } else {
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
+            View::get("errorView.php", ["pageHeader" => "Nice try"]);
         }
     }
 
@@ -190,47 +205,52 @@ class HomepageController extends ViewController
         if (!isset($_SESSION["USERNAME"]))
             header("location:" . $_SESSION["GLOBAL_URL"]);
 
-        $details_project_one = $this->getSingleProject($leftProjectID)->fetch_assoc(); //get details project one
-        $details_project_two = $this->getSingleProject($rightProjectID)->fetch_assoc(); // get details project two
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4) {
+            $details_project_one = $this->getSingleProject($leftProjectID)->fetch_assoc(); //get details project one
+            $details_project_two = $this->getSingleProject($rightProjectID)->fetch_assoc(); // get details project two
 
-        // swap positions
-        $stmt = Database::getConn()->prepare("UPDATE page_structure SET title = ?, text_color = ?, background_color = ?, 
+            // swap positions
+            $stmt = Database::getConn()->prepare("UPDATE page_structure SET title = ?, text_color = ?, background_color = ?, 
                 background_img = ?, positionX = ?, positionY = ?, is_banner = ?, sub_url = ?, sub_title = ?,
         sub_description = ? WHERE id = ?");
 
-        // details table one to two
-        $stmt->bind_param(
-            "ssssssisssi",
-            $details_project_one['title'],
-            $details_project_one['text_color'],
-            $details_project_one['background_color'],
-            $details_project_one['background_img'],
-            $details_project_one['positionX'],
-            $details_project_one['positionY'],
-            $details_project_one['is_banner'],
-            $details_project_one['sub_url'],
-            $details_project_one['sub_title'],
-            $details_project_one['sub_description'],
-            $details_project_two['id']
-        );
-        $stmt->execute();
+            // details table one to two
+            $stmt->bind_param(
+                "ssssssisssi",
+                $details_project_one['title'],
+                $details_project_one['text_color'],
+                $details_project_one['background_color'],
+                $details_project_one['background_img'],
+                $details_project_one['positionX'],
+                $details_project_one['positionY'],
+                $details_project_one['is_banner'],
+                $details_project_one['sub_url'],
+                $details_project_one['sub_title'],
+                $details_project_one['sub_description'],
+                $details_project_two['id']
+            );
+            $stmt->execute();
 
-        // details table two to one
-        $stmt->bind_param(
-            "ssssssisssi",
-            $details_project_two['title'],
-            $details_project_two['text_color'],
-            $details_project_two['background_color'],
-            $details_project_two['background_img'],
-            $details_project_two['positionX'],
-            $details_project_two['positionY'],
-            $details_project_two['is_banner'],
-            $details_project_two['sub_url'],
-            $details_project_two['sub_title'],
-            $details_project_two['sub_description'],
-            $details_project_one['id']
-        );
-        $stmt->execute();
+            // details table two to one
+            $stmt->bind_param(
+                "ssssssisssi",
+                $details_project_two['title'],
+                $details_project_two['text_color'],
+                $details_project_two['background_color'],
+                $details_project_two['background_img'],
+                $details_project_two['positionX'],
+                $details_project_two['positionY'],
+                $details_project_two['is_banner'],
+                $details_project_two['sub_url'],
+                $details_project_two['sub_title'],
+                $details_project_two['sub_description'],
+                $details_project_one['id']
+            );
+            $stmt->execute();
+        } else {
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
+            View::get("errorView.php", ["pageHeader" => "Nice try"]);
+        }
     }
 
     /** Updates */
