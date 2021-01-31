@@ -17,9 +17,9 @@ abstract class ViewController
     /**
      * Method that is used for delivering a view for a specific page, this is standard the
      */
-    public function getView()
+    public function getView($pageName, $params = [])
     {
-        View::get("errorPage.php", ["pageHeader" => "Error"]);
+        View::get($pageName, $params);
     }
 
     /**

@@ -18,13 +18,10 @@ class AuthenticationController extends ViewController
 
     public function getView()
     {
-        View::get(
-            'loginView.php',
-            [
-                "pageHeader" => "Loginpage",
-                "pageTitle" => "Login"
-            ]
-        );
+        parent::getView("loginView.php", [
+            "pageHeader" => "Loginpage",
+            "pageTitle" => "Login"
+        ]);
     }
 
     public function validateLogin()
@@ -47,8 +44,7 @@ class AuthenticationController extends ViewController
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "visitor.home");
         } else {
-            $_SESSION["USERNAME"] = true;
-            $this->getView(); //The login screen
+            $this->getView();
         }
     }
 
