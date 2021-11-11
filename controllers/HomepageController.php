@@ -72,7 +72,7 @@ class HomepageController extends ViewController
     {
         if (!isset($_SESSION["USERNAME"]))
             header("location:" . $_SESSION["GLOBAL_URL"]);
-        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4){
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4) {
             if (isset($_POST['website_banner_header'])) {
                 $headerType = $_POST['website_banner_header'];
                 $this->changeHeaderModus($headerType);
@@ -80,7 +80,7 @@ class HomepageController extends ViewController
                 header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
                 View::get("loadingView.php", ["pageHeader" => "Loading"]);
             }
-        } else{
+        } else {
             header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
             View::get("errorView.php", ["pageHeader" => "Nice try"]);
         }
