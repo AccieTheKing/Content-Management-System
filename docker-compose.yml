@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: cms_frontend
+    image: php:7.4-apache
+    ports:
+      - '8080:80'
+    volumes:
+      - ./:/var/www/html/
+  mysql-database-environment:
+    container_name: cms_database
+    image: mysql
+    restart: always
+    env_file:
+      - ./.env.dev
+    ports:
+      - "9906:3306"
+
