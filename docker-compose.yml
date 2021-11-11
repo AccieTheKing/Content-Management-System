@@ -10,13 +10,24 @@ services:
     volumes:
       - ./:/var/www/html/
     ports:
-      - '8080:80'
+      - '8000:80'
   mysql-database-environment:
     container_name: cms_database
     image: mysql
     restart: always
     env_file:
       - ./.env.dev
+    volumes:
+    - ./my-datavolume:/var/lib/mysql
     ports:
       - "9906:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8080:80'
+    restart: always
+    environment:
+      PMA_HOST: mysql-database-environment
+    depends_on:
+      - mysql-database-environment
 
