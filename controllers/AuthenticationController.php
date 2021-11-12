@@ -12,11 +12,12 @@ class AuthenticationController extends ViewController
     public function __construct()
     {
         $_SESSION["USERNAME"] = null;
-        $_SESSION["GLOBAL_URL"] = "https://cms.acdaling.nl/";
+        // $_SESSION["GLOBAL_URL"] = "https://cms.acdaling.nl/";
+        $_SESSION["GLOBAL_URL"] = "http://localhost:8000/";
     }
 
 
-    public function getView()
+    public function getAuthView()
     {
         parent::getView("loginView.php", [
             "pageHeader" => "Loginpage",
@@ -44,7 +45,7 @@ class AuthenticationController extends ViewController
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "visitor.home");
         } else {
-            $this->getView();
+            $this->getAuthView();
         }
     }
 
@@ -60,7 +61,7 @@ class AuthenticationController extends ViewController
         // $stmt = Database::getConn()->prepare("INSERT INTO admin (username, password) VALUES (?,?)");
         // $stmt->bind_param("ss", $username, $hashedPassword);
         // $stmt->execute();
-        $this->getView();
+        $this->getAuthView();
         echo $hashedPassword;
     }
 

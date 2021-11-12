@@ -7,7 +7,7 @@ return [
     [
         "url" => "/",
         "method" => "GET",
-        "controller" => "AuthenticationController@getView"
+        "controller" => "AuthenticationController@getAuthView"
     ],
     [
         "url" => "/",
