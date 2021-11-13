@@ -52,22 +52,22 @@ return [
     [
         "url" => "/create.project",
         "method" => "POST",
-        "controller" => "HomepageController@createProject"
+        "controller" => "HomepageAdminController@createProject"
     ],
     [
         "url" => "/delete.project",
         "method" => "POST",
-        "controller" => "HomepageController@deleteProject"
+        "controller" => "HomepageAdminController@deleteProject"
     ],
     [
         "url" => "/change.project",
         "method" => "POST",
-        "controller" => "HomepageController@swapProjectOrder"
+        "controller" => "HomepageAdminController@swapProjectOrder"
     ],
     [
         "url" => "/change.header",
         "method" => "POST",
-            "controller" => "HomepageController@changeWebsiteHeader"
+            "controller" => "HomepageAdminController@changeWebsiteHeader"
     ],
     [
         "url" => "/api",
