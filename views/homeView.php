@@ -68,10 +68,10 @@ use Cms\Enums\WebsiteHeader;
                         <span class="badge badge-primary">+</span> Create
                     </button>
                     <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteProject">
-                        <span class="badge badge-primary">-z</span> Delete
+                        <span class="badge badge-primary">&times;</span> Delete
                     </button>
                     <button class="btn btn-secondary" data-toggle="modal" data-target="#changePosition">
-                        <span class="badge badge-primary">%</span> Change
+                        <span class="badge badge-primary">&circlearrowright;</span> Change
                     </button>
                 </div>
                 <h2>Website header</h2>
