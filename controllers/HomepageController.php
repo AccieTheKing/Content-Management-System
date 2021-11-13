@@ -30,6 +30,7 @@ class HomepageController extends ViewController
             header("location:" . $_SESSION["GLOBAL_URL"] . 'visitor.home');
 
         $json = $this->getApiDecoded(); //The api with the data
+        $currentHeaderMode = $this->getHeaderModus();
 
         View::get(
             "homeView.php",
@@ -37,6 +38,7 @@ class HomepageController extends ViewController
                 "pageHeader" => "Homepage",
                 "pageTitle" => "Home",
                 "pageInfoText" => "Welcome to my Content management system, below are some projects that i'm working on.",
+                "websiteHeaderMode" => $currentHeaderMode,
                 "projectPreview" => [
                     ($json["projects"])
                 ]
@@ -283,11 +285,11 @@ class HomepageController extends ViewController
 
     private function getHeaderModus()
     {
-        $stmt = Database::getConn()->prepare("SELECT * FROM page_header");
+        $stmt = Database::getConn()->prepare("SELECT mode FROM page_header WHERE id = ?");
+        $id = 1;
+        $stmt->bind_param("i", $id);
         $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result;
+        return $stmt->get_result()->fetch_assoc()['mode'];
     }
 
     private function getTotalNumOfProjects()

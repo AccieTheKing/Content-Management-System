@@ -22,6 +22,7 @@ use Cms\Enums\WebsiteHeader;
 </header>
 <?php \Cms\Views\View::get("includes/navbar.php", ["usernameUser" => $_SESSION["USERNAME"]]); ?>
 <main>
+    <!--  HEADER TITLE  -->
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -29,6 +30,8 @@ use Cms\Enums\WebsiteHeader;
             </div>
         </div>
     </div>
+    <!--  HEADER TITLE  -->
+    <!--  PAGE CONTENT -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2">
@@ -57,6 +60,7 @@ use Cms\Enums\WebsiteHeader;
                     } ?>
                 </div>
             </div>
+            <!--    ADMIN FUNCTIONALITIES        -->
             <div class="col-12 col-md-2">
                 <h2>Admin functions</h2>
                 <div class="btn-group" role="group">
@@ -74,25 +78,29 @@ use Cms\Enums\WebsiteHeader;
                 <form action="<?= $_SESSION["GLOBAL_URL"] ?>change.header" method="post">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="websiteHeader1" name="website_banner_header"
-                               value="<?= WebsiteHeader::snow ?>">
+                               value="<?= WebsiteHeader::snow ?>"
+                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::snow) ? "checked" : "" ?>/>
                         <label class="form-check-label"
                                for="websiteHeader1"><?= WebsiteHeader::snow ?></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="websiteHeader2" name="website_banner_header"
-                               value="<?= WebsiteHeader::nightsky ?>">
+                               value="<?= WebsiteHeader::nightsky ?>"
+                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::nightsky) ? "checked" : "" ?>/>
                         <label class="form-check-label"
                                for="websiteHeader2"><?= WebsiteHeader::nightsky ?></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="websiteHeader3" name="website_banner_header"
-                               value="<?= WebsiteHeader::bubbles ?>">
+                               value="<?= WebsiteHeader::bubbles ?>"
+                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::bubbles) ? "checked" : "" ?>/>
                         <label class="form-check-label"
                                for="websiteHeader3"><?= WebsiteHeader::bubbles ?></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="websiteHeader4" name="website_banner_header"
-                               value="<?= WebsiteHeader::normal ?>">
+                               value="<?= WebsiteHeader::normal ?>"
+                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::normal) ? "checked" : "" ?>/>
                         <label class="form-check-label"
                                for="websiteHeader4"><?= WebsiteHeader::normal ?></label>
                     </div>
@@ -102,8 +110,11 @@ use Cms\Enums\WebsiteHeader;
                     </button>
                 </form>
             </div>
+            <!--    ADMIN FUNCTIONALITIES        -->
         </div>
     </div>
+
+    <!--  MODALS  -->
     <div class="modals-container">
         <div class="modal fade" id="createProject" tabindex="-1" role="dialog">
             <form action="<?= $_SESSION["GLOBAL_URL"] ?>create.project" method="post">
@@ -228,6 +239,7 @@ use Cms\Enums\WebsiteHeader;
             </form>
         </div>
     </div>
+    <!--  MODALS  -->
 </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
