@@ -1,16 +1,20 @@
 <?php
+use Cms\Utils\DotEnv;
 session_start();
 /**
  * This file will handle the routes
  *
  * @author Acdaling Edusei
  */
-
+$app_environment = 'dev';
 $url = $_SERVER['REQUEST_URI']; //The request url
 $method = $_SERVER['REQUEST_METHOD']; //The request method
 
 // Load dependencies.
 require_once 'autoload.php';
+
+// Load env files
+(new DotEnv(__DIR__.'/.env.'.$app_environment))->load();
 
 // Get routes.
 $routes = require_once 'routes.php';

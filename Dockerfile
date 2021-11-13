@@ -1,6 +1,11 @@
 # Install php 7.4 apache image
 FROM php:7.4-apache
 
+# Script for changing some permissions to use .htaccess file
+SHELL ["/bin/bash", "-c"]
+RUN ln -s ../mods-available/{expires,headers,rewrite}.load /etc/apache2/mods-enabled/
+RUN sed -e '/<Directory \/var\/www\/>/,/<\/Directory>/s/AllowOverride None/AllowOverride All/' -i /etc/apache2/apache2.conf
+
 # Install mysqli and enable it instide the container
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 

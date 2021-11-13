@@ -1,18 +1,32 @@
 version: '3.8'
 services:
-  php-apache-environment:
+  php_apache_service:
     container_name: cms_frontend
-    image: php:7.4-apache
-    ports:
-      - '8080:80'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql_database_service
     volumes:
       - ./:/var/www/html/
-  mysql-database-environment:
+    ports:
+      - '8000:80'
+  mysql_database_service:
     container_name: cms_database
     image: mysql
     restart: always
     env_file:
       - ./.env.dev
+    volumes:
+    - ./my-datavolume:/var/lib/mysql
     ports:
       - "9906:3306"
-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8080:80'
+    restart: always
+    environment:
+      PMA_HOST: mysql_database_service
+    depends_on:
+      - mysql_database_service

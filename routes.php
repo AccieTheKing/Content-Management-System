@@ -7,7 +7,7 @@ return [
     [
         "url" => "/",
         "method" => "GET",
-        "controller" => "AuthenticationController@getView"
+        "controller" => "AuthenticationController@getAuthView"
     ],
     [
         "url" => "/",
@@ -25,14 +25,19 @@ return [
         "controller" => "AuthenticationController@logoutUser"
     ],
     [
-        "url" => "/admin.home",
-        "method" => "GET",
-        "controller" => "HomepageController@getAdminView"
-    ],
-    [
         "url" => "/visitor.home",
         "method" => "GET",
         "controller" => "HomepageController@getVisitorView"
+    ],
+    [
+        "url" => "/visitor.edit",
+        "method" => "GET",
+        "controller" => "EditController@getVisitorView"
+    ],
+    [
+        "url" => "/admin.home",
+        "method" => "GET",
+        "controller" => "HomepageAdminController@getAdminView"
     ],
     [
         "url" => "/admin.edit",
@@ -45,29 +50,29 @@ return [
         "controller" => "EditController@saveContent"
     ],
     [
-        "url" => "/visitor.edit",
-        "method" => "GET",
-        "controller" => "EditController@getVisitorView"
-    ],
-    [
         "url" => "/create.project",
         "method" => "POST",
-        "controller" => "HomepageController@createProject"
+        "controller" => "HomepageAdminController@createProject"
     ],
     [
         "url" => "/delete.project",
         "method" => "POST",
-        "controller" => "HomepageController@deleteProject"
+        "controller" => "HomepageAdminController@deleteProject"
     ],
     [
         "url" => "/change.project",
         "method" => "POST",
-        "controller" => "HomepageController@swapProjectOrder"
+        "controller" => "HomepageAdminController@swapProjectOrder"
     ],
     [
         "url" => "/change.header",
         "method" => "POST",
-            "controller" => "HomepageController@changeWebsiteHeader"
+            "controller" => "HomepageAdminController@changeWebsiteHeader"
+    ],
+    [
+        "url" => "/change.header_text",
+        "method" => "POST",
+        "controller" => "HomepageAdminController@changeWebsiteHeaderText"
     ],
     [
         "url" => "/api",
