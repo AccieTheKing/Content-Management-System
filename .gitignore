@@ -1,5 +1,4 @@
 .idea/
-utils/Database.php
 my-datavolume
 .env.dev
 .env.prod
