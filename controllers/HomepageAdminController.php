@@ -134,6 +134,8 @@ class HomepageAdminController extends ViewController
     public function swapProjectOrder()
     {
         $this->changeProjectOrder($_POST['project_swap_one'], $_POST['project_swap_two']);
+        header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
+        View::get("loadingView.php", ["pageHeader" => "Loading"]);
     }
 
     /**
