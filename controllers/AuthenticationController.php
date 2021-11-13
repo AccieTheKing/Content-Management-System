@@ -3,20 +3,20 @@
 namespace Cms\Controllers;
 
 use Cms\Utils\Database;
-use Cms\Views\View;
 
 class AuthenticationController extends ViewController
 {
-    public static $ADMIN_NAME = "Accie";
+    private $admin_name;
 
     public function __construct()
     {
+        $this->admin_name = $_ENV['APP_ADMIN_USERNAME'];
         $_SESSION["USERNAME"] = null;
-        $_SESSION["GLOBAL_URL"] = "https://cms.acdaling.nl/";
+        $_SESSION["GLOBAL_URL"] = $_ENV['GLOBAL_URL'];
     }
 
 
-    public function getView()
+    public function getAuthView()
     {
         parent::getView("loginView.php", [
             "pageHeader" => "Loginpage",
@@ -37,14 +37,14 @@ class AuthenticationController extends ViewController
 
         $verify = password_verify($password, $row["password"]);
 
-        if ($verify && $row["username"] === static::$ADMIN_NAME) {
+        if ($verify && $row["username"] === $this->admin_name) {
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "admin.home");
         } else if ($verify) {
             $_SESSION["USERNAME"] = htmlentities($row["username"]);
             header("location: " . $_SESSION["GLOBAL_URL"] . "visitor.home");
         } else {
-            $this->getView();
+            $this->getAuthView();
         }
     }
 
@@ -60,7 +60,7 @@ class AuthenticationController extends ViewController
         // $stmt = Database::getConn()->prepare("INSERT INTO admin (username, password) VALUES (?,?)");
         // $stmt->bind_param("ss", $username, $hashedPassword);
         // $stmt->execute();
-        $this->getView();
+        $this->getAuthView();
         echo $hashedPassword;
     }
 
