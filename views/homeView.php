@@ -34,7 +34,7 @@ use Cms\Enums\WebsiteHeader;
     <!--  PAGE CONTENT -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-md-8 offset-md-2">
+            <div class="col-12 col-md-7 offset-md-2">
                 <div class="row">
                     <?php foreach ($projectPreview as $projects) {
                         foreach ($projects as $key => $project) { ?>
@@ -61,54 +61,81 @@ use Cms\Enums\WebsiteHeader;
                 </div>
             </div>
             <!--    ADMIN FUNCTIONALITIES        -->
-            <div class="col-12 col-md-2">
-                <h2>Admin functions</h2>
-                <div class="btn-group" role="group">
-                    <button class="btn btn-secondary" data-toggle="modal" data-target="#createProject">
-                        <span class="badge badge-primary">+</span> Create
-                    </button>
-                    <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteProject">
-                        <span class="badge badge-primary">&times;</span> Delete
-                    </button>
-                    <button class="btn btn-secondary" data-toggle="modal" data-target="#changePosition">
-                        <span class="badge badge-primary">&circlearrowright;</span> Change
-                    </button>
+            <div class="col-12 col-md-3">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Admin functions</h2>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#createProject">
+                                <span class="badge badge-primary">+</span> Create
+                            </button>
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#deleteProject">
+                                <span class="badge badge-primary">&times;</span> Delete
+                            </button>
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#changePosition">
+                                <span class="badge badge-primary">&circlearrowright;</span> Change
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <h2>Website header</h2>
-                <form action="<?= $_SESSION["GLOBAL_URL"] ?>change.header" method="post">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="websiteHeader1" name="website_banner_header"
-                               value="<?= WebsiteHeader::snow ?>"
-                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::snow) ? "checked" : "" ?>/>
-                        <label class="form-check-label"
-                               for="websiteHeader1"><?= WebsiteHeader::snow ?></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="websiteHeader2" name="website_banner_header"
-                               value="<?= WebsiteHeader::nightsky ?>"
-                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::nightsky) ? "checked" : "" ?>/>
-                        <label class="form-check-label"
-                               for="websiteHeader2"><?= WebsiteHeader::nightsky ?></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="websiteHeader3" name="website_banner_header"
-                               value="<?= WebsiteHeader::bubbles ?>"
-                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::bubbles) ? "checked" : "" ?>/>
-                        <label class="form-check-label"
-                               for="websiteHeader3"><?= WebsiteHeader::bubbles ?></label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="websiteHeader4" name="website_banner_header"
-                               value="<?= WebsiteHeader::normal ?>"
-                            <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::normal) ? "checked" : "" ?>/>
-                        <label class="form-check-label"
-                               for="websiteHeader4"><?= WebsiteHeader::normal ?></label>
-                    </div>
 
-                    <button type="submit" class="btn btn-success"
-                            style="display: block; margin: auto; margin-top: 15px;">Save changes
-                    </button>
-                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Website header</h2>
+                        <form action="<?= $_SESSION["GLOBAL_URL"] ?>change.header" method="post">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="websiteHeader1"
+                                       name="website_banner_header"
+                                       value="<?= WebsiteHeader::snow ?>"
+                                    <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::snow) ? "checked" : "" ?>/>
+                                <label class="form-check-label"
+                                       for="websiteHeader1"><?= WebsiteHeader::snow ?></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="websiteHeader2"
+                                       name="website_banner_header"
+                                       value="<?= WebsiteHeader::nightsky ?>"
+                                    <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::nightsky) ? "checked" : "" ?>/>
+                                <label class="form-check-label"
+                                       for="websiteHeader2"><?= WebsiteHeader::nightsky ?></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="websiteHeader3"
+                                       name="website_banner_header"
+                                       value="<?= WebsiteHeader::bubbles ?>"
+                                    <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::bubbles) ? "checked" : "" ?>/>
+                                <label class="form-check-label"
+                                       for="websiteHeader3"><?= WebsiteHeader::bubbles ?></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="websiteHeader4"
+                                       name="website_banner_header"
+                                       value="<?= WebsiteHeader::normal ?>"
+                                    <?= isset($websiteHeaderMode) && ($websiteHeaderMode === WebsiteHeader::normal) ? "checked" : "" ?>/>
+                                <label class="form-check-label"
+                                       for="websiteHeader4"><?= WebsiteHeader::normal ?></label>
+                            </div>
+                            <button type="submit" class="btn btn-success"
+                                    style="display: block; margin: auto; margin-top: 15px;">Save changes
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Website header text</h2>
+                        <form action="/change.header_text" method="post">
+                            <input class="form-control" type="text" id="websiteHeader5" name="website_header_text"
+                                   value="<?= $websiteHeaderText ?>"
+                            />
+                            <button type="submit" class="btn btn-success"
+                                    style="display: block; margin: auto; margin-top: 15px;">Save changes
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <!--    ADMIN FUNCTIONALITIES        -->
         </div>

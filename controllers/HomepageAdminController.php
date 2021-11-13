@@ -31,7 +31,8 @@ class HomepageAdminController extends ViewController
             header("location:" . $_SESSION["GLOBAL_URL"] . 'visitor.home');
 
         $json = $this->getApiDecoded(); //The api with the data
-        $currentHeaderMode = $this->getHeaderModus();
+        $currentHeaderMode = $this->getHeaderDetails()['mode'];
+        $currentHeaderText = $this->getHeaderDetails()['text'];
 
         View::get(
             "homeView.php",
@@ -40,6 +41,7 @@ class HomepageAdminController extends ViewController
                 "pageTitle" => "Home",
                 "pageInfoText" => "Welcome home boss, this is your place for the CMS",
                 "websiteHeaderMode" => $currentHeaderMode,
+                "websiteHeaderText" => $currentHeaderText,
                 "projectPreview" => [
                     ($json["projects"])
                 ]
@@ -55,6 +57,24 @@ class HomepageAdminController extends ViewController
             if (isset($_POST['website_banner_header'])) {
                 $headerType = $_POST['website_banner_header'];
                 $this->changeHeaderModus($headerType);
+
+                header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
+                View::get("loadingView.php", ["pageHeader" => "Loading"]);
+            }
+        } else {
+            header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "visitor.home");
+            View::get("errorView.php", ["pageHeader" => "Nice try"]);
+        }
+    }
+
+    public function changeWebsiteHeaderText()
+    {
+        if (!isset($_SESSION["USERNAME"]))
+            header("location:" . $_SESSION["GLOBAL_URL"]);
+        if (isset($_SESSION["USERNAME"]) && $this->container["ID"] === 4) {
+            if (isset($_POST['website_header_text'])) {
+                $headerText = $_POST['website_header_text'];
+                $this->changeHeaderText($headerText);
 
                 header("Refresh: 2; Url=" . $_SESSION["GLOBAL_URL"] . "admin.home");
                 View::get("loadingView.php", ["pageHeader" => "Loading"]);
@@ -253,6 +273,21 @@ class HomepageAdminController extends ViewController
         return $result;
     }
 
+    private function getHeaderDetails()
+    {
+        $stmt = Database::getConn()->prepare("SELECT * FROM page_header WHERE id = ?");
+        $id = 1;
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    private function getTotalNumOfProjects()
+    {
+        $rows = $this->getAllProjects()->fetch_all(MYSQLI_ASSOC);
+        return count($rows);
+    }
+
     /** Updates */
     private function changeHeaderModus($modus)
     {
@@ -262,18 +297,12 @@ class HomepageAdminController extends ViewController
         $stmt->execute();
     }
 
-    private function getHeaderModus()
+    private function changeHeaderText($value)
     {
-        $stmt = Database::getConn()->prepare("SELECT mode FROM page_header WHERE id = ?");
         $id = 1;
-        $stmt->bind_param("i", $id);
+        $stmt = Database::getConn()->prepare("UPDATE page_header SET text = ? WHERE id = ?");
+        $stmt->bind_param("si", $value, $id);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc()['mode'];
     }
 
-    private function getTotalNumOfProjects()
-    {
-        $rows = $this->getAllProjects()->fetch_all(MYSQLI_ASSOC);
-        return count($rows);
-    }
 }

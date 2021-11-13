@@ -70,6 +70,11 @@ return [
             "controller" => "HomepageAdminController@changeWebsiteHeader"
     ],
     [
+        "url" => "/change.header_text",
+        "method" => "POST",
+        "controller" => "HomepageAdminController@changeWebsiteHeaderText"
+    ],
+    [
         "url" => "/api",
         "method" => "GET",
         "controller" => "ApiController@viewApi"
