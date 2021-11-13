@@ -1,17 +1,17 @@
 version: '3.8'
 services:
-  php-apache-service:
+  php_apache_service:
     container_name: cms_frontend
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - mysql-database-service
+      - mysql_database_service
     volumes:
       - ./:/var/www/html/
     ports:
       - '8000:80'
-  mysql-database-service:
+  mysql_database_service:
     container_name: cms_database
     image: mysql
     restart: always
@@ -27,6 +27,6 @@ services:
       - '8080:80'
     restart: always
     environment:
-      PMA_HOST: mysql-database-service
+      PMA_HOST: mysql_database_service
     depends_on:
-      - mysql-database-service
+      - mysql_database_service
