@@ -25,14 +25,19 @@ return [
         "controller" => "AuthenticationController@logoutUser"
     ],
     [
-        "url" => "/admin.home",
-        "method" => "GET",
-        "controller" => "HomepageController@getAdminView"
-    ],
-    [
         "url" => "/visitor.home",
         "method" => "GET",
         "controller" => "HomepageController@getVisitorView"
+    ],
+    [
+        "url" => "/visitor.edit",
+        "method" => "GET",
+        "controller" => "EditController@getVisitorView"
+    ],
+    [
+        "url" => "/admin.home",
+        "method" => "GET",
+        "controller" => "HomepageAdminController@getAdminView"
     ],
     [
         "url" => "/admin.edit",
@@ -43,11 +48,6 @@ return [
         "url" => "/admin.edit",
         "method" => "POST",
         "controller" => "EditController@saveContent"
-    ],
-    [
-        "url" => "/visitor.edit",
-        "method" => "GET",
-        "controller" => "EditController@getVisitorView"
     ],
     [
         "url" => "/create.project",
