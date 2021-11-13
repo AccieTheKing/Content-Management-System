@@ -16,6 +16,8 @@ abstract class ViewController
 {
     /**
      * Method that is used for delivering a view for a specific page, this is standard the
+     * @param $pageName
+     * @param array $params
      */
     public function getView($pageName, $params = [])
     {

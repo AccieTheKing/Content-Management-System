@@ -64,7 +64,7 @@ class EditController extends ViewController
      */
     public function saveContent()
     {
-        if ($_SESSION['USERNAME'] === "Accie" && $this->container["ID"] === 4) {
+        if ($_SESSION['USERNAME'] === $_ENV['APP_ADMIN_USERNAME'] && $this->container["ID"] === 4) {
             $project_id = isset($_POST["project_id"]) ? $_POST["project_id"] : "";
             $project_title = isset($_POST["project_title"]) ? $_POST["project_title"] : "";
             $project_color = isset($_POST["project_color"]) ? $_POST["project_color"] : "";
