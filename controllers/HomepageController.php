@@ -60,7 +60,7 @@ class HomepageController extends ViewController
             [
                 "pageHeader" => "Homepage",
                 "pageTitle" => "Home",
-                "pageInfoText" => "Welcome to my Content management system, below are some projects that i'm working on.",
+                "pageInfoText" => "Welcome to my simple Content Management System, below are some projects that i'm working on.",
                 "projectPreview" => [
                     ($json["projects"])
                 ]
