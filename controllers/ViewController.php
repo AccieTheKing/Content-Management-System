@@ -48,7 +48,6 @@ abstract class ViewController
     public function getApiDecoded()
     {
         $data = file_get_contents($_SESSION["GLOBAL_URL"] . 'api');
-        // $data = file_get_contents('https://cms.acdaling.nl/api');
         $m = str_replace('},]', "}]", $data);
         return $json = json_decode($m, true);
         // return json_decode($data);
