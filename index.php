@@ -6,7 +6,7 @@ session_start();
  *
  * @author Acdaling Edusei
  */
-$app_environment = 'dev';
+$app_environment = 'prod';
 $url = $_SERVER['REQUEST_URI']; //The request url
 $method = $_SERVER['REQUEST_METHOD']; //The request method
 
