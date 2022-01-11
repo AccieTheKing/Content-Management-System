@@ -128,8 +128,7 @@ use Cms\Enums\WebsiteHeader;
                         <h2>Website header text</h2>
                         <form action="/change.header_text" method="post">
                             <input class="form-control" type="text" id="websiteHeader5" name="website_header_text"
-                                   value="<?= $websiteHeaderText ?>"
-                            />
+                                   value="<?= $websiteHeaderText ?>" autocomplete="off"/>
                             <button type="submit" class="btn btn-success"
                                     style="display: block; margin: auto; margin-top: 15px;">Save changes
                             </button>
