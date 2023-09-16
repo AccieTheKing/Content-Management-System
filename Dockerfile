@@ -1,5 +1,5 @@
-# Install php 7.4 apache image
-FROM php:7.4-apache
+# Install php 8.1 apache image
+FROM php:8.1-apache
 
 # Script for changing some permissions to use .htaccess file
 SHELL ["/bin/bash", "-c"]
