@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   php_apache_service:
-    container_name: cms_frontend
+    container_name: cms_backend
     build:
       context: .
       dockerfile: Dockerfile

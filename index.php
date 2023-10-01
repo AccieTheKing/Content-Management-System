@@ -11,7 +11,7 @@ $url = $_SERVER['REQUEST_URI']; //The request url
 $method = $_SERVER['REQUEST_METHOD']; //The request method
 
 // Load dependencies.
-require_once 'autoload.php';
+require_once __DIR__ . '/autoload.php';
 
 // Load env files
 (new DotEnv(__DIR__.'/.env.'.$app_environment))->load();
