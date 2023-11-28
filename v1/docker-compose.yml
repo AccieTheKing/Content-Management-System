@@ -15,16 +15,21 @@ services:
     container_name: cms_database
     image: mysql
     restart: always
-    env_file:
-      - ./.env.dev
+    environment:
+      - MYSQL_DATABASE=acdalj_mijndatabase
+      - MYSQL_USER=acdalj_Accie
+      - MYSQL_ROOT_PASSWORD=ueEAK3juUmfR
+      - MYSQL_PASSWORD=ueEAK3juUmfR
+    # env_file:
+    #   - ./.env.dev
     volumes:
     - ./my-datavolume:/var/lib/mysql
     ports:
-      - "9906:3306"
+      - "3306:3306"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-      - '8080:80'
+      - '8080:8080'
     restart: always
     environment:
       PMA_HOST: mysql_database_service
